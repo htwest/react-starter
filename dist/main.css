@@ -20,8 +20,23 @@
 .movie-item {
   margin: auto;
   text-align: center;
+  display: inline-block;
   padding: 10px;
   border: 10px;
   border-color: black;
   margin: 5px
+}
+
+.to-watch-list {
+  display: inline;
+
+}
+
+.watched-list{
+  display: inline;
+}
+
+.watch-toggle {
+  display: inline-block;
+  position: relative;
 }
