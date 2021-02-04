@@ -1,3 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-title {
+  text-align: center;
+}
+
 .list-box {
   margin: auto;
 }
@@ -9,4 +20,8 @@
 .movie-item {
   margin: auto;
   text-align: center;
+  padding: 10px;
+  border: 10px;
+  border-color: black;
+  margin: 5px
 }

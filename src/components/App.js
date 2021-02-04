@@ -2,7 +2,7 @@ import React from 'react';
 import sampleMovies from '../data/sampleData.js'
 import MovieList from '../components/MovieList.jsx'
 import Search from '../components/Search.jsx'
-// import AddToMovieList from '../components/AddToMovieList.jsx'
+import AddToMovieList from '../components/AddToMovieList.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -37,15 +37,25 @@ class App extends React.Component {
     })
   }
 
+  onAddClick(inputText) {
+    var updatedList = this.state.movies
+    var newMovie = {title: inputText}
+    updatedList.unshift(newMovie)
+
+    this.setState({
+      movies: updatedList
+    })
+  }
+
 
 
   render(){
     return(
-    <div>
-      <div>
-
+    <div className='container'>
+      <div className='add-box'>
+      <AddToMovieList add={this.onAddClick.bind(this)}/>
       </div>
-      <div>
+      <div className='search-box'>
       <Search search={this.onSearchClick.bind(this)}/>
       </div>
       <div className='list-box'>
