@@ -4,6 +4,7 @@ import MovieList from '../components/MovieList.jsx'
 import Search from '../components/Search.jsx'
 import AddToMovieList from '../components/AddToMovieList.jsx'
 import ListButtons from '../components/ListButtons.jsx'
+import TMBD_API_KEY from '../config/config.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class App extends React.Component {
     this.state = {
       movies: [],
       toWatch: [],
-      watched: []
+      watched: [],
+      movieInfo: {}
     };
 
   }
@@ -54,21 +56,22 @@ class App extends React.Component {
     })
   }
 
-  setToWatch(){
+  setToWatch() {
     this.setState({
       movies: this.state.toWatch
     })
     $('.watch-toggle').show()
   }
 
-  setWatched(){
+  setWatched() {
     this.setState({
       movies: this.state.watched
     })
-    $('.watch-toggle').hide()
+    $('.watch-toggle').hide() // no longer effective
   }
 
   haveWatched(name) {
+    console.log(name)
     var updatedToWatchList = this.state.toWatch
     var updatedWatchedList = this.state.watched
 
@@ -83,12 +86,21 @@ class App extends React.Component {
       toWatch: updatedToWatchList,
       watched: updatedWatchedList
     })
-
   }
 
-  this.props.searchMovieDatabase(options, callback)
+  infoGetter(movieTitle) {
+    var options = {
+      api_key: TMBD_API_KEY,
+      query: movieTitle
+    }
 
-
+    this.props.searchMovieDatabase(options, (data) => {
+      this.setState({
+        movieInfo: data.results[0]
+      })
+      console.log(this.state)
+    })
+  }
 
   render(){
     return(
@@ -103,7 +115,7 @@ class App extends React.Component {
         <ListButtons toWatch={this.setToWatch.bind(this)} watched={this.setWatched.bind(this)}/>
       </div>
       <div className='list-box'>
-        <MovieList movies={this.state.movies} haveWatched={this.haveWatched.bind(this)}/>
+        <MovieList movies={this.state.movies} haveWatched={this.haveWatched.bind(this)} infoGetter={this.infoGetter.bind(this)} movieInfo={this.state.movieInfo}/>
       </div>
     </div>
   )}
